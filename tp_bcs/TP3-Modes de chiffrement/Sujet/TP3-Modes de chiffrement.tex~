@@ -1,0 +1,142 @@
+\documentclass[french,a4paper,11pt]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage{amsmath,amsfonts}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{hyperref}
+
+\newcommand{\Zp}[1]{\mathbb{Z}/{#1}\mathbb{Z}}
+
+\title{\textbf{TP3 - Modes de chiffrement}}
+\date{30 Septembre 2021}
+
+\begin{document}
+	
+	\maketitle
+	
+	L'objectif de ces exercices est de vous familiariser avec les vulnérabilités de différents modes de chiffrement (ou leur utilisation), et d'explorer les solutions possibles.
+		
+	% \noindent Un rendu est attendu : une archive contenant tout votre code ainsi qu'un rapport répondant aux questions. N'oubliez pas de commenter votre code et de détailler vos réponses autant que possible (en incluant toute piste suivie, même si elle n'a pas abouti).
+	
+	% Le rendu est à envoyer par mail pour le \textbf{Lundi 9 Novembre, 23h59}, en incluant "[BCS]" dans l'objet, à l'adresse daniel.de-almeida-braga@irisa.fr. 
+
+	\begin{center}
+		\fbox{
+			\fbox{
+				\parbox{5.5in}{
+					\centering
+					Pour ce TP, pas besoin de \texttt{sage}. Tout peut être fait en python, ou dans le langage de votre choix.
+				}
+			}
+		}
+	\end{center}
+
+	\section*{Préliminaires}
+
+	Pour les deux exercices suivants, des interactions avec un serveur sont nécessaires. Pour éviter tout problème de gestion et d'éventuel problème de réseau, un script python faisant tourner un serveur local (sur \texttt{localhost:8000} par défaut) est mis à disposition avec le sujet.
+
+	Les deux exercices étant indépendants, le serveur n'assure pas les mêmes fonctionnalité, et il faudra lancer le bon pour chaque exercice. 
+
+	Tous les scripts mis à disposition tournent en \textbf{python 3}, donc assurez vous d'utiliser la bonne version en cas de problème. Pour les opérations cryptographiques, le package \texttt{pycryptodome} est utilisé. Vous pouvez l'installer avec un simple \texttt{pip3 install pycryptodome}.
+
+	Pour lancer le serveur, exécutez le script \texttt{server.py} dans un terminal, et connectez vous via le port affiché pour interagir avec (en cas de soucis pour se connecter, ne perdez pas de temps et demandez de l'aide). Le script \texttt{client.py} peut vous servir de base pour l'exercice.
+	\vspace*{0.25cm}
+
+	Le contenu des scripts autres que client.py est évidemment considéré secret (bien que vous y aillez accès pours des raisons de simplicité) et les informations contenues ne doivent pas être utilisées pour la réalisation de l'exercice. En revanche, je vous encourage à y jeter un oeil et ajouter des instructions de debug pour vous aider.
+
+
+	\section*{Exercice 1 : CVE-2020-1472 Zerologon}
+
+	
+	La CVE-2020-1472, appelée Zerologon en référence à la vulnérabilité exploitée et au nom du protocol, permet à un attaquant de s'authentifier 
+	sur un \textit{Domain Controller} sans connaître les identifiants.\\
+	L'objectif de cet exercice est d'exploiter la vulnérabilité cryptographique rendant le bypass de l'authentification possible. Nous considérerons seulement une version simplifié du protocole, et l'exploitation à partir du \textit{Domain Controller} est hors sujet ici.
+
+	Commencez par lire le \href{https://www.secura.com/uploads/whitepapers/Zerologon.pdf}{\textit{white paper}} décrivant la vulnérabilité (notamment les pages 3 à 5).
+
+	Ici, le serveur local n'effectue pas la dernière étape du protocole (\textit{Signing + sealing} avec la clé de session), qui empêche l'attaque. En pratique, cette étape peut être désactivée via un flag sur certaines implémentations.
+
+	Implémentez l'attaque permettant de s'authentifier. Ici, le secret (correspondant typiquement à un hash salé du mot de passe utilisateur) est généré aléatoirement au lancement du serveur.
+
+	\begin{center}
+		\fbox{
+			\fbox{
+				\parbox{5.5in}{
+					\centering
+					Servez vous du code disponible dans le dossier \texttt{ex1-zerologon\_material}. Le fichier \texttt{client.py} est une bonne base pour commencer le script d'attaque.
+				}
+			}
+		}
+	\end{center}
+
+	Le serveur local est assez basique : une fois lancé, il attend que le client s'y connecte en envoyant 2 séquences d'octets (type \texttt{bytes} en python). Le première correspond on challenge du client, auquel le serveur répond en envoyant son challenge. La seconde requête attendue est le validation du challenge, auquel le serveur répond par \texttt{b'You are successful authenticated!'} ou \texttt{b'Authentication failed'}.
+
+	\noindent Ne cherchez pas à compliquer les choses, l'exploit tient en 10 lignes de Python.
+	
+	\section*{Exercice 2 : Oracle de padding avec le mode CBC}
+	
+	Le \href{https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)}{mode de chiffrement CBC} a longtemps été utilisé de pair avec l'AES pour assurer la confidentialité des données. En revanche, de par son design, il est \emph{malléable}. C'est à dire qu'un attaquant peut opérer des modifications contrôlées sur le contenu du message clair, uniquement à partir du chiffré.
+
+	De plus, s'agissant d'un mode de chiffrement par bloc, un padding est systématiquement ajouté à la fin du message pour que la taille soit multiple de la taille d'un bloc (128 bits pour AES). Si la taille du message est déjà multiple de la taille du bloc, un bloc entier de padding est ajouté.
+
+	Notamment, si l'attaquant dispose d'un oracle de format sur le message clair (un oracle de padding typiquement), il est en mesure d'abuser de cette malléabilité pour retrouver le contenu du message. \\
+	Si vous n'êtes pas familier avec ce type d'attaque, je vous invite à regarder \href{https://dylanpindur.com/blog/padding-oracles-an-animated-primer/}{ce lien}, qui illustre le concept, et à poser des questions en cas d'incompréhension. Cette vulnérabilité est très connue et bien documentée, vous pouvez trouver de nombreuses explications différentes sur internet, n'hésitez pas à en regarder plusieurs si vous avez du mal à comprendre le concept.
+
+	\begin{center}
+		\fbox{
+			\fbox{
+				\parbox{5.5in}{
+					\centering
+					Le padding utilisé n'est pas standard (afin d'éviter que vous ne repreniez des solutions toutes faites).
+				}
+			}
+		}
+	\end{center}
+
+	\noindent Le padding utilisé par l'oracle de cet exercice est le suivant : 
+	\texttt{pad = [i for i in range(padding\_len)]}
+	Par exemple, pour un message nécessitant 1 octet de padding, \texttt{pad = 0x00}. Pour deux octets, \texttt{pad = 0x00 01}, ..., pour 16 octets, \texttt{pad = 0x00 01 .. 0f}.
+
+	L'idée de l'attaque est toutefois identique : retrouver le message clair un octet à la fois, en partant de l'octet le plus à droite.
+	
+	\begin{questions} 
+	
+	\question En envoyant des requêtes à l'oracle niveau 1, retrouvez le contenu du message (le message clair est évidemment disponible dans le fichier \texttt{oracle.py}, mais supposez que vous n'y avez pas accès).\\
+	Pour appréhender le fonctionnement du script, vous pouvez ajouter des informations de debug si vous le souhaitez. 
+	\begin{parts}
+		\part Notez que cet oracle attend au moins 2 blocs de 16 octets (IV + chiffré), et retourne des codes d'erreur clairs en fonction de la validité du padding. \\
+		Implémentez une fonction \texttt{query\_oracle} qui effectue une requête à l'oracle et retourne un booléen représentant la validité du padding. Vous pouvez tester avec un message quelconque (qui devrait être invalide) et le message chiffré original (qui devrait être valide).
+		
+		\part Implémentez une fonction \texttt{decrypt\_char} qui prend en entrée deux blocs \texttt{c0} et \texttt{c1} ainsi que l'indice \texttt{i} du caractère à retrouver. \\
+		Cette fonction va faire varier le \texttt{i}$^{ième}$ octet de \texttt{c0} jusqu'à ce que le déchiffrement de \texttt{c0 || c1} donne un padding valide.\\
+		La fonction retourne le \texttt{i}$^{ième}$ caractère du bloc \texttt{c1} déchiffré.
+
+		\part Implémentez une fonction \texttt{decrypt\_block} qui prend en entrée le block à déchiffrer \texttt{c1} et le block précédent \texttt{c0}, et utilise la fonction \texttt{decrypt\_char} sur les indices i = 15, ..., 0 pour retrouver les caractères de \texttt{c1} un par un. \\
+		La fonction retourne le contenu de en clair de \texttt{c1}.\\
+		\emph{Indice : } Lorsque vous changez d'indice, n'oubliez pas de mettre à jour le bloc intermédiaire \texttt{c0'} pour que le padding corresponde.
+
+		\part En prenant l'IV et le chiffré donnés, parcourez les blocs de droite à gauche, en déchiffrant chacun d'eux à l'aide de la fonction \texttt{decrypt\_block}.
+	\end{parts}
+
+	\question Modifiez la fonction \texttt{query\_oracle} pour exploiter l'oracle de niveau 2. Si vous ne comprenez pas ce qui vous permet de distinguer la validité du padding, vous pouvez aller voir le code dans \texttt{oracle.py}.\\
+	Le reste du code ne devrait pas changer puisque la vérification est similaire.
+	
+	\question Quel mécanisme(s) supplémentaire(s) pourrait-on coupler au mode CBC pour éviter cette vulnérabilité ? En vous inspirant de l'oracle niveau 2, décrivez les précautions particulières à prendre pour éviter que la vulnérabilité puisse encore être exploitée.
+	
+	\question Afin d'éviter de reposer sur une solution "bancale" (qui demande une implémentation extrêmement minutieuse pour éviter des conséquences désastreuses), que suggéreriez-vous pour remplacer ce mode de chiffrement. Pourquoi ?
+	
+	\end{questions}
+
+	\section*{À RETENIR}
+
+	Les modes de chiffrement les plus répandus ne sont pas forcement les plus sécurisés et les plus fiables. Certains, tel que le mode CBC, sont conservés principalement pour des raisons de rétrocompatibilité, et leur sécurité repose sur un assemblage parfois complexe de mécanisme ad-hoc permettant de palier leur(s) problème(s).
+
+	De manière général, il est préférable de se tourner vers une solution qui assure les besoins de sécurité requis par défaut (chiffrement authentifié avec le mode GCM par exemple) . 
+
+	S'il n'y a pas le choix, il vaut mieux faire appel à un expert pour éviter d'introduire une vulnérabilité dans le mécanisme mis en place.
+	
+\end{document}

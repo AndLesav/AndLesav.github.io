@@ -1,0 +1,323 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Template: Designer's CV
+%
+% Source: http://www.howtotex.com
+% 
+% Feel free to distribute this example, but please keep the referral
+% to HowToTeX.com
+% 
+% Date: March 2012
+%
+% Modified by Lim Lian Tze to support multiple pages using fix provided at
+% http://www.howtotex.com/templates/creating-a-designers-cv-in-latex/
+% Date: November 2014
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document properties and packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,12pt,final]{memoir}
+
+% misc
+\renewcommand{\familydefault}{bch}	% font
+\pagestyle{empty}					% no pagenumbering
+\setlength{\parindent}{0pt}			% no paragraph indentation
+
+
+% required packages (add your own)
+\usepackage{flowfram}										% column layout
+\usepackage[top=1cm,left=1cm,right=1cm,bottom=1cm]{geometry}% margins
+\usepackage{graphicx}										% figures
+\usepackage{url}											% URLs
+\usepackage[usenames,dvipsnames]{xcolor}					% color
+\usepackage{multicol}										% columns env.
+	\setlength{\multicolsep}{0pt}
+\usepackage{paralist}										% compact lists
+\usepackage{tikz}
+
+\usepackage{ragged2e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Create column layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define length commands
+\setlength{\vcolumnsep}{\baselineskip}
+\setlength{\columnsep}{\vcolumnsep}
+
+% left frame
+\newflowframe{0.15\textwidth}{\textheight}{0pt}{0pt}[left]
+\newlength{\LeftMainSep}
+\setlength{\LeftMainSep}{0.15\textwidth}
+\addtolength{\LeftMainSep}{1\columnsep}
+
+% small static frame for the vertical line
+\newstaticframe{1.5pt}{\textheight}{\LeftMainSep}{0pt}
+
+% content of the static frame
+\begin{staticcontents}{1}
+  \hfill
+  \tikz{%
+    \draw[loosely dotted,color=RoyalBlue,line width=1.5pt,yshift=0]
+    (0,0) -- (0,\textheight);}%
+  \hfill\mbox{}
+\end{staticcontents}
+
+% right frame
+\addtolength{\LeftMainSep}{1.5pt}
+\addtolength{\LeftMainSep}{1\columnsep}
+\newflowframe{0.7\textwidth}{\textheight}{\LeftMainSep}{0pt}[main01]
+
+\linespread{1.25}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% define macros (for convience)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\Sep}{\vspace{1.5em}}
+\newcommand{\SmallSep}{\vspace{0.5em}}
+
+\newenvironment{AboutMe}
+{\ignorespaces\textbf{\color{RoyalBlue} About me}}
+{\Sep\ignorespacesafterend}
+
+\newcommand{\CVSection}[1]
+{\Large\textbf{#1}\par
+  \SmallSep\normalsize\normalfont}
+
+\newcommand{\CVItem}[1]
+{\textbf{\color{RoyalBlue} #1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Begin document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+
+% Left frame
+%%%%%%%%%%%%%%%%%%%% 
+% 
+% Upload your own photo using the files menu
+\begin{figure}
+  \hfill
+  \includegraphics[width=0.9\columnwidth]{photo.png}
+  \vspace{-7cm}
+\end{figure}
+\begin{flushright}\small
+  % \url{andrea.lesavourey@irisa.fr}  \\
+  % (+61) 401 193 085 \\
+
+  % Andrea Lesavourey \\
+\end{flushright}\normalsize
+\framebreak
+
+
+% Right frame
+%%%%%%%%%%%%%%%%%%%% 
+\Huge\bfseries {\color{RoyalBlue} Andrea Lesavourey}  \\
+\normalsize\normalfont
+
+% Education
+\CVSection{Academic cursus} 
+
+\CVItem{Post-doctoral fellow}\\
+Septembre 2021 - present, Univ Rennes, CNRS, IRISA. \\
+
+
+\CVItem{PhD Student}\\
+October 2017 - June 2021, University of Wollongong, Australia.
+\begin{itemize}
+\item \textit{Lattices for a post-quantum cryptography}, supervised by Pr Willy Susilo and Dr Thomas Plantard
+\end{itemize}
+
+\SmallSep
+
+% \CVItem{Internship supervised by Christophe Negre and Thomas Plantard}\\
+% June 2016 - July 2016, Laboratoire DALI, University of Perpignan, France
+% \begin{itemize}
+% \item Work on Hermite Normal Form and Side Channel Analysis
+% \end{itemize}
+% \SmallSep
+
+
+\CVItem{Master 1 in Cryptology}\\
+% \justify
+2015 - 2016, University of Bordeaux, France
+
+\begin{itemize}
+\item Master Research thesis supervised by Christophe Negre and Thomas Plantard : \textit{Randomization in RNS and Leak Resistant Arithmetic} \\
+  \underline{Abstract :} The Leak Resistant Arithmetic proposed to randomize an exponentiation procedure in RNS via Montgomery’s multiplication. We study a modification of this approach by not clearing the mask during the procedure in order to save two Montgomery’s multiplications at each loop and improve the level of randomization.
+
+\item Teaching followed : Programming (C), Arithmetic, Complexity Theory, Information Theory, Elliptic Curves (use of Pari/GP), Cryptology, Algorithmic Calculus (use of SageMaths), Introduction to Diophantine Approximations
+\end{itemize}
+\SmallSep
+
+\CVItem{Master Degree in Pure Mathematics}
+
+2015, University of Bordeaux, France
+
+\begin{itemize}
+\item Master Thesis supervised by Pierre Parent : \textit{Th\'{e}or\`{e}me de Chabauty et version effective de Coleman} \\
+  \underline{Abstract :} Faltings proved in 1983 that every curve of genus strictly greater than 1 has only a finite number of rational points. Sadly, his proof cannot be made efficient. But Coleman improved the intermediate result of Chabauty (40’s), which use some p-adic argument, to obtain a good bound for the number of rational points in special cases.
+
+\item Teaching followed : Algebraic Geometry, Introduction to p-adic numbers, Computational Number Theory (use of Pari/GP), Group cohomology, Geometry
+\end{itemize}
+
+\clearpage
+\framebreak
+\framebreak 
+
+2012, University of Bordeaux, France
+\begin{itemize}
+\item Master Thesis supervised by Valentin F\'{e}ray : \textit{Formalisation de la jonglerie et concepts math\'{e}matiques li\'{e}s} \\ 
+  \normalsize\normalfont
+  \underline{Abstract :} We study siteswaps, which can be defined as one way to juggle and can be described mathematically. In particular, we use 
+  different representations of these objects and study them from a combinatorial point of view.
+\end{itemize}
+
+\SmallSep
+% You'll need these 3 lines at the end of each page!
+
+\CVItem{Master Degree in Teaching of Mathematics}
+
+2012 - 2014, University of Bordeaux, France \vspace{0.2cm}
+
+\hspace{0.4cm} $\bullet$ Agr\'egation de Math\'ematiques, option Probabilit\'es et Statistiques
+
+% \hspace{0.7cm} (use of Scilab)
+\vspace{0.2cm}
+\SmallSep
+
+\CVItem{Bachelor Degree in Pure Mathematics}\\
+2008 - 2011, University of Bordeaux, France
+
+\Sep
+
+\CVSection{Research and academic activities}
+
+\CVItem{Journal papers}
+\begin{itemize}
+\item  Andrea Lesavourey, Thomas Plantard, and Willy Susilo. ``Short Principal Ideal Problem in multicubic fields''. \textit{Journal of Mathematical Cryptology} 14.1 (2020): 359-392. \url{https://doi.org/10.1515/jmc-2019-0028}
+\end{itemize}
+
+\CVItem{Conference papers}
+
+\begin{itemize}
+\item Andrea Lesavourey, Thomas Plantard, Willy Susilo:  \textit{On ideal lattices in multicubic fields},  Accepted to Number-Theoretic Methods in  Cryptology (NutMic) 2019, \url{http://nutmic2019.imj-prg.fr/}.
+\item Andrea Lesavourey, Christophe Negre, Thomas Plantard:  \textit{Efficient Leak Resistant Modular Exponentiation in RNS.} ARITH 2017: 156-163.
+\item Andrea Lesavourey, Christophe Negre, Thomas Plantard:  \textit{Efficient Randomized Regular Modular Exponentiation using Combined Montgomery and Barrett Multiplications.} SECRYPT 2016: 368-375.
+\end{itemize}
+
+\CVItem{Current activities}
+\begin{itemize}
+\item Andrea Lesavourey, Thomas Plantard, Arnaud Sipasseuth,  \textit{Lattices defined by diagonally dominant matrices},  Submitted.
+\item Andrea Lesavourey, Thomas Plantard, Willy Susilo,  \textit{On the Short Principal Ideal Problem over some real Kummer fields}, Submitted to the journal \emph{Mathematical Cryptology}.
+\end{itemize}  
+  \clearpage
+\framebreak
+\framebreak
+\begin{itemize}
+\item Andrea Lesavourey, Thomas Plantard, Willy Susilo, \emph{Roots of polynomials in number fields: computation through complex embeddings}, To be submitted.
+\end{itemize}
+
+
+\CVItem{Collaboration visits} \\
+June/July 2019, Sorbonne University, LIP6\\
+Guest of Jean-Claude Bajard within the MACAO program, \url{https://ssl.informatics.uow.edu.au/MACAO/}. \\
+Discussions with Antoine Joux and Fabrice Rouiller on the computation of cube roots in multicubic fields. \\
+
+
+\CVItem{Organisations} \\
+November 2019, MACAO workshop in Wollongong \\
+\url{https://ssl.informatics.uow.edu.au/MACAO/workshop_2019.html}. \\
+
+\CVItem{Reviews} \\
+ACISP 2020 \\
+
+% Experience
+\CVSection{Teaching}
+
+\CVItem{Tutoring in Computer Science}\\
+Autumn Session 2020, University of Wollongong\\
+Knowledge and Information Engineering (ISIT219)
+\SmallSep
+
+\CVItem{Tutoring in Computer Science}\\
+Autumn Session 2019, University of Wollongong\\
+Problem Solving (CSIT113)
+\SmallSep
+
+\CVItem{Highschool Mathematics Teacher}\\
+Septembre 2016 - June 2017, Lycée Malherbe of Caen, France\\
+Year 10 and Year 11 with specialisation in science
+\SmallSep
+
+\CVItem{Tutoring in Mathematics}\\
+2015-2016, University of Bordeaux\\
+General Mathematics for Bachelor students (50 hours)
+\SmallSep
+
+\CVItem{Tutoring in Mathematics}\\
+2014-2015, University of Bordeaux\\
+General Mathematics for Bachelor students (35 hours)
+\SmallSep
+
+\CVItem{Preparatory School Examiner}\\
+2014-2015, Camille Jullian Highschool, Bordeaux\\
+Oral Examiner for students training to enter Engineering Schools\\
+Linear Algebra, Real Analysis (60 hours)
+\SmallSep
+
+\CVItem{Private tutoring}\\
+From secondary school to bachelor students
+\SmallSep
+\Sep
+
+\clearpage
+\framebreak
+\framebreak
+
+\CVSection{References}
+\CVItem{University of Wollongong, Australia} 
+
+\textbf{Dr Thomas Plantard} \\
+Senior Research Fellow\\
+Institute of Cybersecurity and Cryptology \\
+School of Computing and Information Technology  \\
+\url{thomaspl@uow.edu.au} \\
+% (+61) 2 42 21 53 24 \\
+
+\textbf{Pr Willy Susilo} \\
+Professor and Head of School\\
+Institute of Cybersecurity and Cryptology \\
+School of Computing and Information Technology \\
+\url{wsusilol@uow.edu.au} \\
+
+\CVItem{University of Perpignan, France} \\
+\textbf{Dr Christophe Negre} \\
+Associate Professor \\
+Digits Architectures Logiciels Informatique\\
+\url{christophe.negre@univ-perp.fr} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

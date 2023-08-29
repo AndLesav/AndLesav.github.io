@@ -1,0 +1,82 @@
+\documentclass[french,a4paper,11pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage{hyperref}
+\usepackage{amsmath,amsfonts}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+
+\newcommand{\Zp}[1]{\mathbb{Z}/{#1}\mathbb{Z}}
+
+\title{\textbf{TP - ECC et ECDSA}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Le TP d'aujourd'hui est un examen. Un rendu est attendu : une archive contenant tout
+votre code. N'oubliez pas de commenter votre code.
+
+Le rendu est à envoyer par mail pour le \textbf{vendredi 7 0ctobre, 23h59}, en incluant "[BCS]" dans l'objet, à l'adresse \url{andrea.lesavourey@irisa.fr}. 
+
+\begin{center}
+  \fbox{
+    \fbox{
+      \parbox{5.5in}{
+        L'objectif est d'implanter \textbf{en C} les opérations sur les courbes
+        elliptiques nécessaires à la cryptographie.
+      }
+    }
+  }
+\end{center}
+
+% \noindent Toutes les données nécessaires sont disponibles sur le drive dans le fichier
+% \texttt{tp2-ecdsa\_material.sage}.
+
+\section*{Exercice 1: Manipulation de points sur une courbe elliptique}
+Implantez les opérations nécessaires à la cryptographie basée sur les
+courbes elliptiques. Vous pouvez par exemple utiliser la librairie
+\textsc{Gmp} pour manipuler des entiers de taille arbitraire. 
+
+\vspace{-.5cm}
+\section*{}
+ Afin de rendre des étapes d'exponentiation plus efficaces, plusieurs
+méthodes ont été développées\footnote{\url{https://en.wikipedia.org/wiki/Exponentiation_by_squaring}}\footnote{\url{http://koclab.cs.ucsb.edu/teaching/ecc/eccPapers/Doche-ch09.pdf}}. L'objectif des exercices suivants est d'en explorer deux
+d'entre elles.
+
+
+
+\section*{Exercice 2: Fenêtre fixe ou méthode \(2^k\)-aire}
+La méthode de la fenêtre fixe ou \(2^k\)-aire consiste à calculer à l'avance
+certaines puissances de l'élément de base \(g\) qu'on pourra réutiliser durant le
+calcul d'éléments de la forme \(g^e\). Adaptez cette méthode à la multiplication d'un
+point \(P\) d'une courbe elliptique par un scalaire. \\
+
+\emph{Bonus :} Implantez la version améliorée de cette méthode qu'est la fenêtre
+glissante.
+
+
+\section*{Exercice 3: Forme non adjacente}
+La forme non adjacente (NAF) d'un entier \(k\) est une représentation signée équivalente à
+la décomposition binaire. Elle permet notamment de remplacer des
+additions par des soustractions lors de la multiplication d'un point \(P\) par le
+scalaire \(k\).
+\begin{questions}
+  \question Codez des fonctions permettant de passer d'une décomposition binaire
+  d'un entier à sa NAF et vice-versa.
+  \question Implantez un algorithme de multiplication d'un point par un scalaire
+  qui utilise la NAF.
+\end{questions}
+
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

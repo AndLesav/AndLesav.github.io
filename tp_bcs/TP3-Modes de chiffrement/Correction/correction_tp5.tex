@@ -1,0 +1,47 @@
+\documentclass[french,a4paper,11pt]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage{amsmath,amsfonts}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{hyperref}
+
+\newcommand{\Zp}[1]{\mathbb{Z}/{#1}\mathbb{Z}}
+
+\title{\textbf{TP5 - Modes de chiffrement}}
+\date{02 Novembre 2020}
+
+\begin{document}
+	
+	\maketitle
+
+
+	\section*{Exercice 1 : CVE-2020-1472 Zerologon}
+
+	L'attaque est détaillée dans le papier que je vous ais donné, je ne vois pas quoi vous expliquer de plus. 
+	Des explications complémentaire peuvent être trouvées ici \footnote{\url{https://crypto.stackexchange.com/questions/86106/zerologon-question-aes-cfb8/86154\#86154}}.
+	
+	\section*{Exercice 2 : Oracle de padding avec le mode CBC}
+	
+	Idem, il s'agit de reproduire une attaque largement documentée.
+
+	Dans le niveau deux, il faut se rendre compte que même si on a toujours le même code d'erreur, le temps d’exécution va varier en fonction de la validité du padding. On est donc en mesure de savoir quand on a trouvé un padding valide grace au temps que met le serveur à nous répondre.\\
+	On parle de fuite d'information via des \emph{canaux auxiliaire} (side channels), ici lié au temps d'exécution. Il s'agit de vulnérabilité très récurrente, notamment en cryptographie.\\ 
+	Ici j'ai artificiellement ajouté un \texttt{sleep(1)}, mais on pourrait imaginer un serveur qui ne vérifie le HMAC que si le padding est valide. On a déjà vu ça dans des implémentations grand publique. 
+	
+	On peut ajouter un HMAC sur le chiffré (Encrypt-then-MAC) pour que toute altération du chiffré soit détectée avant une tentative de déchiffrement.
+	
+	En revanche, un moyen plus sûr, et fortement recommandé dans la mesure du possible, est de se tourner vers un mode de chiffrement authentifié, tel que le mode GCM (qui agit comme le mode CTR, en calculant un tag d'authentification au fur et à mesure du chiffrement).
+
+	\section*{À RETENIR}
+
+	Les modes de chiffrement les plus répandus ne sont pas forcement les plus sécurisés et les plus fiables. Certains, tel que le mode CBC, sont conservé principalement pour des raisons de rétrocompatibilité, et leur sécurité repose sur un assemblage parfois complexe de mécanisme ad-hoc permettant de palier leur(s) problème(s).
+
+	De manière général, il est préférable de se tourner vers une solution qui assure les besoins de sécurité requis par défaut (chiffrement authentifié avec le mode GCM par exemple) . 
+
+	S'il n'y a pas le choix, il vaut mieux faire appel à un expert pour éviter d'introduire une vulnérabilité dans le mécanisme mis en place.
+	
+\end{document}

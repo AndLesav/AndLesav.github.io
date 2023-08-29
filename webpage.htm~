@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!-- Template by html.am -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Andrea Lesavourey</title>
+    <style type="text/css">
+      
+      body{
+	  margin: 0;
+	  padding: 0;
+	  overflow: hidden;
+	  height: 150%; 
+	  max-height: 150%; 
+	  font-family:CourierNew;
+	  line-height: 1.75em;
+	  font-size:115%;
+      }
+      
+      a:link,a:visited, a:hover, a:focus, a:active {
+	  text-decoration: none;
+	  color: #FFFFFF;
+	  
+      }
+      
+      #main a{
+	  text-decoration: none;
+	  color: #660000;
+	  
+      }
+      
+      
+      #nav{
+	  position: fixed;
+	  top: 0;
+	  bottom: 0; 
+	  left: 0;
+	  width: 260px; /* Width of navigation frame */
+	  height: 100%;
+	  overflow: hidden; /* Disables scrollbars on the navigation frame. To enable scrollbars, change "hidden" to "scroll" */
+	  background: #880000;
+      }
+      
+      main{
+	  position: fixed;
+	  top: 0; 
+	  left:0px; /* Set this to the width of the navigation frame */
+	  right: 0;
+	  bottom: 0;
+	  overflow: auto; 
+	  background: #7555;
+      }
+      
+      .innertube{
+	  margin: 10px; /* Provides padding for the content */
+      }
+      
+      p {
+	  color: #555;
+      }
+
+      nav ul {
+	  list-style-type: none;
+	  margin: 0;
+	  padding: 0;
+      }
+      
+      nav ul a {
+	  color: darkgreen;
+	  text-decoration: none;
+      }
+      
+      /*IE6 fix*/
+      * html body{
+	  padding: 0 0 0 245px; /* Set the last value to the width of the navigation frame */
+      }
+      
+      * html main{ 
+	  height: 100%; 
+	  width: 100%; 
+      }
+
+      hr {
+	  display: block;
+	  margin-top: 0.5em;
+	  margin-bottom: 0.05em;
+	  margin-left: auto;
+	  margin-right: 1px;
+	  border-style: dashed;
+	  border-width: 1.75px;
+	  border-color: #660000;
+	  clear: both;
+      }
+    </style>
+  </head>
+
+  
+  <body>		  
+    <main>
+      <!-- <nav id="nav"> -->
+	<!-- 	<div class="innertube"> -->
+
+	  <!-- 	  <\!-- <h1><a href=index.htm>Andrea Lesavourey</a></h1> -\-> -->
+	    <!-- 	  <\!-- <h3><a href="#Research">Research</a></h3> -\-> -->
+	      <!-- 	  <\!-- <\\!-- <h3><a href="#Curriculum Vitae">Curriculum Vitae</a></h3> -\\-> -\-> -->
+		<!-- 	  <\!-- <h3><a href="#Teaching">Teaching</a></h3> -\-> -->
+		  <!-- 	  <\!-- <h3><a href="#Other">Other</a></h3> -\-> -->
+		    <!-- 	  <\!-- <h3><a href="#Contact">Contact</a></h3> -\-> -->
+		      <!-- 	</div> -->
+	<!-- </nav> -->
+      
+      <div id="main" class="innertube">
+	<img src="picture.jpg" height="230" width="230" align="right">
+	<h1>Andrea Lesavourey</h1>
+	
+	<b><a href="#Research">Research</a>  &nbsp
+	  <!-- <h3><a href="#Curriculum Vitae">Curriculum Vitae</a></h3> -->
+	  <a href="#Teaching">Teaching</a>  &nbsp
+	  <!-- <a href="#Other">Other</a> &nbsp -->
+	  <a href="#Contact">Contact</a></b> 
+	<br><br>
+
+	I am currently a post-doctoral student at CNRS Rennes, at IRISA, working under the supervision of <a href="https://people.irisa.fr/Adeline.Roux-Langlois/">Adeline Roux-Langlois.</a>
+
+	
+	Previously, I was a Ph.D. student at <i><a href="https://www.uow.edu.au/"> University of Wollongong, Australia </a> </i> under the supervsion of <i><a href="https://documents.uow.edu.au/~wsusilo/">Willy Susilo</a></i> and <i><a href="https://ssl.informatics.uow.edu.au/MACAO/thomas_plantard.html">Thomas Plantard</a></i>.</br>
+	
+	
+	<h2 id="Contact">Contact</h2>
+	<ul>				
+	  <li> Mail: <i>andrea(dot)lesavourey(at)irisa(dot)fr </i> </li>
+	</ul>
+
+	<hr>
+	
+	<h2 id="Research">Research</h2>
+	I am currently working on ideal lattices, and am interested in anything relied to mathematics. </br>
+
+	<br>
+	<!-- <h3>Publications</h3> -->
+
+	My Ph.D. thesis can be found <a href="https://ro.uow.edu.au/theses1/1110/">here.</a> <br>
+
+	
+	<h3 id="Journal">Journal Papers</h3>
+	<ol><li> <i><a href=" https://doi.org/10.1515/jmc-2019-0028">Short Principal Ideal Problem in multicubic fields</i></a>, <a href="https://www.degruyter.com/view/journals/jmc/jmc-overview.xml">Journal of Mathematical Cryptology</a>, 14(1), 359-392, with <a href="https://documents.uow.edu.au/~wsusilo/">Willy Susilo</a> and <a href="https://ssl.informatics.uow.edu.au/MACAO/thomas_plantard.html">Thomas Plantard</a>
+	    <br> Journal version of the paper below, presented at NutMic 2019.
+	    
+	</ol>
+	<h3 id="Conference">Conference Papers</h3>
+	<!-- <ol type="3"> -->
+	  <ol><li> <i><a href="http://nutmic2019.imj-prg.fr/confpapers/MultiCubic.pdf">On ideal lattices in multicubic fields</i></a>, 
+	      with <a href="https://documents.uow.edu.au/~wsusilo/">Willy Susilo</a> and <a href="https://ssl.informatics.uow.edu.au/MACAO/thomas_plantard.html">Thomas Plantard</a>.
+	      <br> <a href= "http://nutmic2019.imj-prg.fr/" > Number-Theoretic Methods in Cryptology 2019 </a> 
+	      <br> <a href= "http://nutmic2019.imj-prg.fr/slides/Lesavourey_Nutmic.pdf"> Slides </a> </li>
+	    <br>
+	    <li> <i>Efficient Leak Resistant Modular Exponentiation in RNS</i>, with <a href="http://perso.univ-perp.fr/christophe.negre/">C. Negre</a> and <a href="https://ssl.informatics.uow.edu.au/MACAO/thomas_plantard.html">T. Plantard</a>.
+	      <br>Proceedings of <a href="http://arith24.arithsymposium.org">ARITH 24</a>. 24th IEEE Symposium on Computer Arithmetic. London, England, July 24-26, 2017, pages 156-163.	
+	    </li>
+	    <br>
+	    <li> <i>Efficient Randomized Regular Modular Exponentiation using Combined Montgomery and Barrett Multiplications</i>, 
+	      with <a href="http://perso.univ-perp.fr/christophe.negre/">C. Negre</a> and <a href="https://ssl.informatics.uow.edu.au/MACAO/thomas_plantard.html">T. Plantard</a>.
+	      <br><a href="http://www.secrypt.icete.org">SECRYPT 2016</a>. The 13th International Conference on Security and Cryptography. Lisbon, Portugal, July 26-28, 2016, pages 368-375.
+	    </li>
+	  </ol>
+
+	  <h3>Summer schools</h3>
+	  <ol>
+	    <li> School for young reaserchers by the GDR-IM in France, <a href="https://ejcim2020.sciencesconf.org/">EJCIM</a>
+	      <br> <a href="https://ejcim2020.sciencesconf.org/data/EJCIM_lesavourey.pdf"> Slides </a>
+	  </ol>
+
+
+	  <h3>Organisation</h3>
+	  I helped organise and took part to the <i>First Workshop On Mathematics and Algorithms for Cryptographic
+	    Advanced Objects</i>, <a href="https://ssl.informatics.uow.edu.au/MACAO/workshop_2019.html"> MACAO. </a>
+
+	  <hr>	
+
+	  
+	  <h2 id="Curriculum Vitae">Curriculum Vitae</h2>
+	  Here is my <a href=CV_Lesavourey.pdf>CV</a>.
+	  <hr>
+
+	  <h2 id="Teaching">Teaching</h2>
+
+	  <h4>First semester 2021-2022</h4>
+	  <ul>
+	    <li> Tutoring at Université Rennes 1, France.
+	      <br><i> Introduction to programming </i> (Inf1). </li>
+	    <br>
+	    <li> Tutoring at Université Rennes 1, France.
+	      <br><i> Introduction to algorithmic   </i> (M1 Meef, Préparation au CAPES-NSI). </li>	
+
+	  </ul>
+
+	  
+	  <h4>Autumn Session 2020</h4>
+	  <ul>
+	    <li> Tutoring at University of Wollongong, Australia.
+	      <br><i> Knowledge and Information Engineering </i> (ISIT219). </li>	
+	  </ul>
+	  
+	  <h4>Autumn Session 2019</h4>
+	  <ul>
+	    <li> Tutoring at University of Wollongong, Australia.
+	      <br><i> Problem Solving </i> (CSIT113). </li>	
+	  </ul>
+	  <h4>2016-2017</h4>
+	  <ul>
+	    <li> Highschool Mathematics Teacher at Lycée Malherbe in Caen, France.	
+	  </ul>
+	  <!-- <h2 id="Other">Other</h2> -->
+      </div>
+
+      <script language="javascript"> 
+	months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; 
+	var d=new Date();
+	var theDate = new Date(document.lastModified); 
+	theDate.setTime((theDate.getTime()+(60*60)) ) 
+	with (theDate) { 
+	    document.write("<i>Last updated: "+' '+getDate()+' '+months[getMonth()]+' '+getFullYear()+"</i>") 
+	} 
+	</script>
+    </main>
+
+
+
+  </body>
+</html>

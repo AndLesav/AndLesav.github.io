@@ -1,0 +1,84 @@
+\documentclass[french,a4paper,11pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{amsmath,amsfonts}
+\usepackage{systeme}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{hyperref}
+
+\title{\textbf{Projet : Rapport et Oral}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+L'objectif de ce TP est à la fois de vous permettre d'explorer une thématique de votre choix et vous sert d'entrainement à la vulgarisation. Il s'agit d'un travail \textbf{individuel}.
+
+\paragraph{Oral. } Vous présenterez votre sujet sur les séances du \textbf{lundi
+  28 novembre} et \textbf{mardi 29 novembre}. Votre présentation doit durer 10
+minutes \textbf{au plus} et donner un bon aperçu de votre sujet. Vous pouvez
+utiliser des diapos, auquel cas il faudra les envoyer la veille de la séance,
+avant 18h, pour ne pas perdre de temps.\\
+Vous passerez par ordre alphabétique.\\
+\textcolor{red}{Faites des répétitions avant l'oral, si vous dépasser trop au niveau du temps nous devrons mettre fin à la présentation pour ne pas prendre de retard.} % Vous pouvez regarder quelques vidéos de Ma Thèse En 180 Secondes\footnote{\url{https://www.youtube.com/channel/UCvWoYjTzOe-dC0xFNQI-TGg}} pour voir comment vulgariser un vaste sujet en peu de temps. 
+
+
+\paragraph{Rapport. } À rendre pour le \textbf{dimanche 20 novembre au plus tard}. Le rapport doit faire au moins \textbf{5 pages de \underline{contenu}} (en restant raisonnable sur les marges, la taille de police, etc...) et peut être rédigé en français ou en anglais. Vous pouvez bien sûr vous aider de schémas et d’illustrations (encore une fois dans la limite du raisonnable). Pour clarifier : les pages de garde, sommaire et autres ne comptent pas comme du contenu. En cas de doutes, demandez moi.\\
+N’oubliez pas de bien citer vos sources, quelles qu’elles soient.\\
+\underline{Implémentation} : si le sujet s'y prête, fournir une implémentation (C/C++/Python/Sage) en lien avec le sujet.
+
+\paragraph{Sujets. } Voici une liste de sujets potentiels. Si vous avez des idées de sujet en lien avec la cryptographie, n'hésitez pas à le proposer. Vous êtes libre
+d'aborder le sujet sous l'angle qui vous intéresse, dans la mesure où vous
+conservez l'aspect cryptographique (dans le doute, demandez).
+\begin{enumerate}
+\item Le problème du sac à dos, cryptosystèmes associés et attaques.
+\item Vote électronique (= à distance).
+\item Étude du WEP et attaques.
+\item Étude de WPA2 et attaques.
+\item Étude de WPA3 (améliorations, attaques, ...).
+\item Cryptanalyse du DES.
+\item Cryptanalyse de l'AES.
+\item Algorithme AKS pour la primalité.
+\item Codes correcteurs de paquets d’erreurs (codes CIRC des CD par exemple).
+\item Système des cartes bancaires.
+\item Cryptosystème de McEliece (basé sur les codes correcteurs) et attaque.
+\item La machine Enigma.
+\item Fonctionnement des DRM (Digital Rights Management).
+\item Algorithme QFS (voire NFS) pour la factorisation.
+\item Le système CSS (protection des DVD).
+\item GPG/PGP (outils grand public de communication électronique sécurisée).
+\item Présentation et cryptanalyse de FEAL (chiffrement par bloc).
+\item Attaques de MD5 (fonction de hachage).
+\item Attaques de SHA1 (fonction de hachage).
+\item Sécurité des passeports éléctroniques.
+\item Algorithme de Shor pour casser RSA et/ou le logarithme discret avec un ordinateur quantique.
+\item Compromis temps-mémoire et rainbow tables pour casser les mots de passe.
+\item Cryptomonnaies (type bitcoin).
+\item Sécurité des applications de messagerie instantanée (WhatsApp/Signal par exemple).
+\item Le système de chiffrement par flot ChaCha.
+\item La cryptographie en boite blanche.
+\item L’algorithme de Berlekamp-Massey pour attaquer les LFSR.
+\item Système de chiffrement préservant le format (chiffrement homomorphe).
+\item TLS (v1.3).
+\item L’outil John the Ripper (fonctionnement, utilisation, limites, ...).
+\item Les gestionnaires de mots de passe.
+\item Attaques sur RSA.
+\item Les ransomwares.
+\item Principes/techniques de génération aléatoire.
+\item Attaques micro-architecturales (e.g. cache-attacks) visant les implémentations cryptographiques.
+\item Vulnérabilités dans les communications sécurisés par mail (rejoint GPG/PGP).
+\item Attaques par canaux cachés sur implémentations cryptographiques.
+\item <insérez votre super bonne idée ici>
+\end{enumerate}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

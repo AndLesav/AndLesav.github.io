@@ -1,0 +1,50 @@
+// compile with:
+// $ gcc -o  -lgmp
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <gmp.h>
+
+
+void mpz_cryptrand(mpz_t rop, const size_t size){
+  unsigned char* buf = NULL;
+  FILE* f = NULL;
+
+  buf = malloc(size*sizeof(unsigned char));
+  if(!buf)
+    goto err;
+
+  f = fopen("/dev/urandom", "r");
+  if (!f) 
+    goto err;
+
+  fread(buf, size, 1, f);
+  mpz_import(rop, size, 1, 1, 0, 0, buf);
+
+ err:
+  if (buf) free(buf);
+  if (f) fclose(f);
+}
+
+
+/* binary division */
+void valuation(mpz_t d, mpz_t s, const mpz_t n, const mpz_t p) {
+  mpz_t d, s, r;
+  mpz_inits(d, s, r);
+
+  
+  while () {
+  }
+}
+
+/*     renvoie s, d tels que n-1 = 2^s*d avec s = v_2(n-1) */
+void rm_decomp(mpz_t s, mpz_t d, const mpz_t n) {
+  
+}
+
+
+int main(int argc, char **argv){
+
+  return 0;
+}

@@ -1,0 +1,63 @@
+\documentclass[english,a4paper,11pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\title{\textbf{Practical Exercises 2 - RSA}}
+\date{September, 09$^{th}$, 2021}
+
+\begin{document}
+	
+	\maketitle
+	
+	The goal of these exercises is to familiarize with RSA's main weaknesses. For the implementation, you will use  \texttt{sage}, a python-based mathematical toolbox.
+	
+	You can contact me anytime on discord (Cyberschool server) or by mail at \url{daniel.de-almeida-braga@irisa.fr}.
+
+	%\noindent A report is expected, as a tar file containing your code as long as your answers to the questions. Do not forget to comment your code, and give details in your answers. Include \textbf{any leads you explored}, even if they did not succeed, and \textbf{as much details as} you can to show your understanding of the subject.
+	
+	%You shall send your reports in an e-mail, containing "[BCS]" in the subject, to \url{daniel.de-almeida-braga@irisa.fr}. The report is expected within a week after the session.
+	
+	\section*{Exercise 1: Factorisation}
+	
+	When prime numbers have some specific properties, we can use some specific factorization algorithm taking advantage of this property to make factorisation easier. 
+	
+	\begin{center}
+		\fbox{
+			\fbox{
+				\parbox{5.5in}{
+					You can find the file \texttt{tp2-rsa\_material.sage} on the drive, containing all necessary data.
+				}
+			}
+		}
+		\vspace{0.2cm}
+	\end{center}
+	
+	\begin{questions}
+	
+	\question Generating large prime numbers can take some time, so Alice decided to generate only one (and use $p=q$). Can you find out a way to factor \texttt{n1} and recover the message ?\\
+	\emph{Hint: finding the square root is easier than factoring!}
+	\begin{parts}
+		\part Given the factor, you can compute $\varphi(n_2)$, but be careful and take a look at the formula\footnote{\url{https://en.wikipedia.org/wiki/Euler's_totient_function#Value_for_a_prime_power_argument}}.
+		\part Using $\varphi(n_2)$, you can easily recover the full private key (\texttt{inverse\_mod} should be helpful here).
+		\part Recover the message.
+	\end{parts}
+		
+	\question Implement the Pollard $p-1$ algorithm\footnotetext{\url{https://en.wikipedia.org/wiki/Pollard's_p_-_1_algorithm}} to factorize an integer.
+	\question Using this algorithm, try to factor \texttt{n2} and decrypt the message.
+	
+	\end{questions}
+	
+	\section*{Exercise 2: Decryption oracle}
+	
+	Given a ciphertext \texttt{c}, a public key \texttt{(n, e)} and an oracle allowing to decrypt any message (except \texttt{c} !), how can you recover the plaintext corresponding to \texttt{c} ?\\
+	\emph{Hint: Remember that $(a\times b)^e\bmod n = a^e \times b^e \bmod n$}
+	\vspace*{0.5cm}
+	
+	\noindent Once you get the idea, you can try it by solving "RSA - Decipher Oracle" on root-me for 25 points.
+
+	
+\end{document}

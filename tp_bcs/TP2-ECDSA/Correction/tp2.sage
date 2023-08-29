@@ -1,0 +1,269 @@
+from hashlib import sha256
+
+### EXERCICE 1 : manipulation de points sur une courbe elliptique
+
+### Creation of elliptic curve
+FF = GF(29);                    # Finite field of size 29
+a4 = -3;
+a6 = 5;
+
+E = EllipticCurve(FF, [a4, a6]);
+card = E.order();
+
+E2 = EllipticCurve(FF, [-2, 20]); # question 4 curve E2
+card2 = E.order()
+
+
+### order of points (q. 1.b and 1.c)
+for i in range(100):
+    P = E.random_point();
+    print(P.order())
+    print ((card % P.order()) == 0); 
+    
+
+### question 2 : multiplication scalaire
+
+# double
+def douple_points(E, P):
+    if P[2] == 0:               # P is then infinity point
+        Q = P;
+    elif P[1] == 0:
+        Q = E(0);
+    else:
+        l = (3*P[0]^2 + E.a4()) / (2*P[1]);
+        xQ = l^2-2*P[0];
+        yQ = l*(P[0] - xQ) -  P[1];
+        Q = E(xQ, yQ);
+    return Q;
+
+# add
+def add_points(E, P1, P2):
+    """ add two points P1 and P2 from elliptic curve E """
+    if P1 == E(0):
+        return P2;
+    elif P2 == E(0):
+        return P1;
+    elif P1 == P2:
+        return douple_points(E, P1);
+    elif ((P1[0] == P2[0])):
+        return E(0);
+    else:
+        l = (P2[1] - P1[1]) / (P2[0]- P1[0]);
+        xQ = l^2 - P1[0] - P2[0];
+        yQ = l * (P2[0]-xQ) - P2[1];
+        return E(xQ, yQ);
+
+### scalar multiplication
+def scalar_mult(E, P, l):
+    """
+    multiply P by scalar l in the group defined by curve E
+    use a standard double-and-add strategy
+    """
+    Q = P;
+    R = E(0);
+    B = ZZ(l).bits()
+    for b in B:
+        if b == 1:
+            R = add_points(E, R, Q);
+        Q = douple_points(E, Q);
+    return R;
+
+
+### verify computations for scalar multiplication
+for i in range(100):
+    P = E.random_point();
+    l = randint(10, 100);
+    print(P, l);
+    print(l*P == scalar_mult(E, P, l));
+
+
+### question 3 : order
+
+def get_point_order(E, P):
+    o = 1;
+    Q = P;
+    while (Q != E(0)):
+        Q = add_points(E, Q, P);
+        o += 1;
+    return o;
+
+
+### verification for order
+for i in range(100):
+    P = E.random_point();
+    print(get_point_order(E, P) == P.order());
+
+
+### question 4
+def is_point_x(E, x):
+    z = x^3 + E.a4()*x + E.a6();
+    return is_square (E.base_ring()(z))
+
+def all_points(E):
+    L = [E(0)];
+    for t in E.base_ring():
+        if is_point_x(E, t):
+            y = sqrt(E.base_ring()(t^3 + E.a4()*t + E.a6()));
+            L.append([t, y])
+            L.append([t, -y])
+    return L;
+
+### computations
+L = all_points(E);
+L2 = all_points(E2);
+
+O2 = [get_point_order(E2, E2(l)) for l in L2]
+
+
+###  Question 5
+p = 51646698564449502183630508998684683453
+Fp = GF(p)
+E3 = EllipticCurve(Fp, [-3, 6])
+l = E3.order()
+f = factor(l)
+for a in f:
+    print(a[0]);
+
+### 5.b and 5.c
+P = [5866391592011188692732729142407841644, 50082992786731864883063206566493560050]
+oP = get_point_order(E3, E3(P)) # order is too small
+
+### 5.d
+s = log(1.*l, 2) # sqrt(s) ~ 63 bits of security --> not enough
+
+
+### EXERCICE 2 : ECDSA
+
+
+
+
+### ECDSA : schéma de signature basée sur le log discret dans les courbes elliptiques
+
+def ECDSA_hash(m):
+    return (int(sha256(m.encode()).digest().hex(), 16));
+
+
+def ECDSA_keygen(E, G, n):
+    '''
+    generating sk 
+    '''
+    sk = randint(1, n-1);       # should be crypto secure
+    pk = scalar_mult(E, G, sk);
+    return pk, sk;
+
+def ECDSA_sign(m, pk, sk, E, G, n):
+    '''
+    signing process of ECDSA
+    pk, sk : ECDSA keys
+    E, G, n : ECDSA parameters (E curve, G in E and n = ord(G))
+    '''
+    h = ECDSA_hash(m) % n;
+    xQ = 0;
+    yQ = 0;
+    while yQ == 0:
+        while xQ == 0:
+            k = randint(1, n-1);        # again should be crypto secure
+            P = scalar_mult(E, G, k);
+            xQ = int(P[0]) % n;
+        yQ = int((ZZ(k).inverse_mod(n)) * (h + xQ * sk) ) % n;
+    return [xQ, yQ];
+
+def ECDSA_verify(m, s, pk, E, G, n):
+    '''
+    signing process of ECDSA
+    pk : ECDSA public key
+    E, G, n : ECDSA parameters (E curve, G in E and n = ord(G)) 
+    '''
+    if (not is_point_x(E, pk[0])):
+        return False;
+    elif (pk == E(0)) or (scalar_mult(E, pk, n) != E(0)):
+        return False;
+    elif not( 1 <= (s[0] < n) and ( 1 <= s[1] < n)):
+        return False;
+    # print("after conditions")
+    h = ECDSA_hash(m) ;
+    y_inv = inverse_mod(s[1], n);
+    # print("before 1st scalar mult")
+    l1 = (y_inv * h) % n;
+    l2 = (y_inv * s[0]) % n;
+    P = scalar_mult(E, G, (y_inv * h) % n);
+    # print("after 1st scalar mult")
+    Q = scalar_mult(E, E(pk), (y_inv * s[0]) % n);
+    R = add_points(E, P, Q);
+    # print("y_inv = ", y_inv)
+    # print("h = ", h)
+    # print("scal1 = ", l1)
+    # print("scal2 = ", l2)
+    
+    return (Mod(s[0], n)==Mod(R[0], n));
+
+
+### verification
+
+### creation of P-256 from NIST
+# p = 2^256-2^224+2^192+2^96-1
+p = 115792089210356248762697446949407573530086143415290314195533631308867097853951;
+F256 = GF(p);
+b = 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b;
+E256 = EllipticCurve(F256, [-3, b]);
+xG = 0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296;
+yG = 0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5;
+G = E256(xG, yG);
+n = 115792089210356248762697446949407573529996955224135760342422259061068512044369;
+
+
+pk, sk = ECDSA_keygen(E256, E256(xG, yG), n);
+
+### test sign
+m = "ajkncjwkwjk"
+s = ECDSA_sign(m, pk, sk, E256, G, n);
+print(ECDSA_verify(m, s, pk, E256, G, n));
+
+
+### EXERCICE 3 : ECDSA again
+
+### P-256 and nonce known
+# if k is known then one can inverse the whole process : s = 1/k * (h + r*sk)
+# so just compute (k*s - h) / r 
+
+m1 = "Message important"
+pk = E256(0x7453873d3b072c061d03c3d09aba344b6a25f406a3dad40b0281025824bda4a3, 0x9e41b56ecaaf199fbb6d33fb2d748ec454c128aa7be74a1998cf57de34b7988b)
+
+r1 = 0x62286e65a6703cdff07b19dba56c34c84d9be61edfac86b347d7fc337615a3bf
+s1 = 0xc4926a0932e3d1f6aeec3c6a55926aaa73911c2b7a1325b2cc2e45ed70271578
+k1 = 0x7963d7dadb13b6c53864c267dad2e94e52c00e41eaabd03c6f5c559ef912722b
+
+print(ECDSA_verify(m1, [r1,s1], pk, E256, G, n));
+
+
+h = ECDSA_hash(m1);
+sk_rec = Mod((k1 * s1 - h)*r1.inverse_mod(n), n);
+
+print(sk_rec);
+
+print("verifying if the recover private key is valid");
+print(E256(scalar_mult(E256, G, sk_rec)) == E256(pk));
+
+
+### question 2
+m2_1 = "Deux messages différents,  signés utilisant le même nonce "
+r2_1 = 0xa6b2cbe4982361d0132b720c698ae5cb866271aa3f39b564018848a3bb7fbe07
+s2_1 = 0x700f22bbdaa2027936bff58819fa674a2ff83ff120d18990b6cddc933b87fd89
+m2_2 = "sont facilement reconnaissables par leur signature. "
+r2_2 = 0xd76446168b18bc500812599efb6e37e9bf4467614f943aa55901ef1f3a1a57ef
+s2_2 = 0x947016dd00edd5bab0a2c91dbeff335bbe4b22449c91cb20a3766ed80aa32bd1
+m2_3 = "Il est alors possible de retrouver une information secrète..."
+r2_3 = 0xa6b2cbe4982361d0132b720c698ae5cb866271aa3f39b564018848a3bb7fbe07
+s2_3 = 0x1437dd0ebd91efcebe8bf7d93c8a4a5ba3b7a900bf1a1a37da20a3a1e7a4d8fa
+
+# le nonce est k tel que s[0] = k * G : ainsi la première coordonnée de la signature
+# est identique si le nonce est le même
+
+h2_1 = ECDSA_hash(m2_1);
+h2_3 = ECDSA_hash(m2_3);
+
+k_rec = (s2_1 - s2_3).inverse_mod(n);
+k_rec = Mod(k_rec * (h2_1 - h2_3) , n) ;
+sk_rec = Mod((k_rec * s2_1 - h2_1)*r2_1.inverse_mod(n), n);
+print("verifying if the recover private key is valid");
+print(E256(scalar_mult(E256, G, sk_rec)) == E256(pk));

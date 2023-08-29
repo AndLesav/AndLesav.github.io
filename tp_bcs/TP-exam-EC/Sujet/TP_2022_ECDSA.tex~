@@ -1,0 +1,130 @@
+\documentclass[french,a4paper,11pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage{hyperref}
+\usepackage{amsmath,amsfonts}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+
+\newcommand{\Zp}[1]{\mathbb{Z}/{#1}\mathbb{Z}}
+
+\title{\textbf{TP - ECC et ECDSA}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+L'objectif de ces exercices est de vous familiariser avec la cryptographie basée sur
+les courbes elliptiques (ECC) et d'illustrer le concept avec l'algorithme de signature
+numérique ECDSA. 
+
+% \noindent Un rendu est attendu : une archive contenant tout votre code ainsi qu'un rapport répondant aux questions. N'oubliez pas de commenter votre code et de détailler vos réponses autant que possible (en incluant toute piste suivie, même si elle n'a pas abouti).
+
+% Le rendu est à envoyer par mail pour le \textbf{Jeudi 15 Octobre, 23h59}, en incluant "[BCS]" dans l'objet, à l'adresse daniel.de-almeida-braga@irisa.fr. 
+
+\begin{center}
+  \fbox{
+    \fbox{
+      \parbox{5.5in}{
+        Vous êtes libre de choisir le langage de programmation de votre choix, mais \texttt{sage} est fortement recommandé puisqu'il supporte nativement les opérations sur les courbes elliptiques (vous pouvez définir un objet \texttt{EllipticCurve}) et de nombreuses méthodes utiles.
+      }
+    }
+  }
+\end{center}
+
+% \noindent Toutes les données nécessaires sont disponibles sur le drive dans le fichier
+% \texttt{tp2-ecdsa\_material.sage}.
+
+\section*{Exercice 1: Manipulation de points sur une courbe elliptique}
+
+\paragraph{Rappel} Une courbe elliptique est un groupe définit par une \textbf{équation} satisfaisant certaines propriétés ($y^2 = x^3 - 3x + 5$ par exemple) \textbf{et un corps} (les réels ou les entiers modulo un nombre premier $p$ par exemple). Les éléments de ce groupe sont les points appartenant à cette courbe, c'est à dire les points dont les coordonnées satisfont l'équation sur le corps.
+
+Ici, la loi d'opération entre les éléments du groupe est \textbf{additive}, ce qui signifie qu'on peut additionner deux points pour en obtenir un troisième, toujours sur la courbe. La loi d'addition est définie de telle sorte à ce que cette propriété soit satisfaite.\footnote{\url{https://www.math.brown.edu/~jhs/Presentations/WyomingEllipticCurve.pdf}}. 
+
+Si la courbe est définie sur un corps fini, le groupe formé par les points est \textbf{cyclique}. De ce fait, chaque élément a un \textbf{ordre fini} : si un point $P$ est d'ordre $k$, alors $k\times P = \mathcal{O}$ (ici on a une multiplication et non une exponentiation car la loi est additive et non multiplicative).
+
+En cryptographie, on manipule des points d'ordre très élevés pour assurer un niveau de sécurité suffisant. 
+En effet, la plupart de la cryptographie basée sur les courbes elliptiques repose sur la difficulté du \textit{Elliptic Curve Discrete Logarithm Problem} (ECDLP): 
+"Étant donné un point $G$ publique, d'ordre $\ell$ suffisamment grand, et un point aléatoire $Q$, il est infaisable de retrouver $k$ tel que $Q = k\times G$." 
+Pour résoudre ce problème on connait des algorithme génériques (\textit{i.e.} qui fonctionne sur tous les cas) permettant de calculer le logarithme discret en $O(\sqrt n)$, il est donc important de choisir une courbe dont l'ordre est suffisamment grand pour garantir un niveau de sécurité suffisant. 
+\vspace*{0.2cm}
+
+\begin{questions}
+  \question Pour commencer, réalisez certaines opérations simples sur \texttt{sage} :
+  \begin{parts}
+    \part Créez une courbe $E_1$ correspondant à l'équation $y^2 = x^3 - 3x + 5$ sur $\Zp{29}$.
+    \part Générez un point aléatoire sur cette courbe à l'aide de la méthode \texttt{random\_point}.
+    \part Vérifier l'ordre de la courbe à l'aide de la méthode \texttt{order}. Faites de même pour l'ordre de différents points. Que constatez-vous ?
+  \end{parts}
+
+  \question Implémentez la multiplication scalaire sur cette courbe.
+  \footnote{\url{https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication\#Point_operations}}
+  \begin{parts}
+    \part Implémentez une fonction \texttt{add\_points} qui prend en paramètre deux points \underline{distincts} \texttt{$P_1$} et \texttt{$P_2$} ainsi que la courbe (ou ses paramètres) et retourne \texttt{Q=$P_1$+$P_2$}. Pensez à gérer le point infini. 
+    \part Implémentez une fonction \texttt{double\_points} qui prend en paramètre un point \texttt{P} et la courbe (ou ses paramètres) et retourne \texttt{Q=P+P}. Pensez à gérer le point infini.
+    \part Implémentez à l'aide des deux fonctions précédentes la multiplication scalaire avec l'algorithme \textit{double-and-add} \footnote{\url{https://wikipedia.org/wiki/Elliptic_curve_point_multiplication\#Point_multiplication/}} qui consiste à décomposer le scalaire en bits, et pour chacun des bits, doubler le point, et additionner le points de base uniquement si le bit vaut 1.
+  \end{parts}
+
+  \question Sans utiliser la méthode \texttt{order}, écrire une fonction \texttt{get\_point\_order} qui prend en entrée un point, et qui renvoie son ordre (de manière très simple).
+  
+  \question Listez tous les points sur la courbe $E_1$ et $E_2$ (définie par l'équation $y^2 = x^3 - 2x + 20$ sur $\Zp{29}$).
+  \begin{parts}
+    \part Écrire une fonction \texttt{is\_point\_x} qui prend en entrée une coordonnée entière $x$ (on peut supposer $x\in\Zp{29}$) et la courbe (ou ses paramètres), et qui retourne \texttt{True} si cet entier correspond à la coordonnée $x$ d'un point sur la courbe, et \texttt{False} sinon.\\
+    La méthode \texttt{is\_square} permet de vérifier si un entier est un résidu quadratique, c'est-à-dire s'il est le carré d'un autre élément.
+    \part À l'aide de la méthode précédente, trouvez tous les points présents sur cette courbe, et vérifier l'ordre de chacun de ces points. Que constatez-vous ?
+  \end{parts}
+  
+  \question Considérons maintenant la courbe $E_3$ définie par $y^2 = x^3 - 3x + 6$ sur les entiers modulo $${p = 51646698564449502183630508998684683453}$$
+  Cette courbe comporte $\ell=51646698564449502188925059897707133441$ points (elle est donc d'ordre $\ell$).
+  \begin{parts}
+    \part Si on prend un point aléatoire sur cette courbe, de quel ordre peut-il être ?  
+    \\\emph{Indice : regardez l'ordre de la courbe}.
+    \part Soit $$P = (5866391592011188692732729142407841644, 50082992786731864883063206566493560050)$$
+    Quel est l'ordre de P (n'essayez pas de trouver à la main) ? 
+    \part Que pensez-vous de la sécurité apportée par l'usage du point P en tant que générateur si on se base sur la difficulté de ECDLP ? Justifiez.
+    \part Supposons que $P_2$ soit d'ordre $order(P_2) =\ell$. Est-ce suffisant ? 
+  \end{parts}
+  
+\end{questions}
+
+\section*{Exercice 2 : ECDSA}
+
+\begin{questions}
+  \question Expliquez (sans plagier) ce qu'est ECDSA, sans oublier de dire ce qu'est une signature numérique. 
+  
+  \question Implémentez ECDSA (en \texttt{sage} de préférence, pour vous faciliter la tâche).
+  
+  \question Est-ce que le nonce (communément noté $k$) utilisé durant la signature est considéré sensible/secret ? Justifier. \\
+  La réponse à cette question est apportée par l'exercice suivant, mais essayez d'identifier les problèmes potentiels en cas de mauvais usage du nonce avant d'avancer dans le TP.
+\end{questions}
+
+\section*{Exercice 3 : Attaques sur ECDSA (Bonus)}
+
+Dans un schéma de signature, le message n'est pas forcement considéré secret. Ici, on va considérer que l'attaquant connait le message à chiffrer.\\
+Toutes les signatures sont générées en utilisant la courbe P-256 du NIST (dont les paramètres sont donnés) et la fonction de hachage SHA256.
+
+\begin{questions}
+  \question Supposez qu'un utilisateur signe un message et le transmette avec le nonce utilisé durant la signature.
+  \begin{parts}
+    \part Quelles informations l'attaquant est-il en mesure de retrouver ? Souvenez-vous que le message $m$, la signature $(r, s)$ et le nonce $k$ sont connus.
+    \part Implémentez l'attaque avec les valeurs données.
+  \end{parts}
+  
+  \question Cette fois, l'utilisateur a gardé le nonce secret, mais l'a utilisé pour signer plusieurs messages différents (deux en l'occurence). Ce problème est connu et a causé de nombreux problèmes dans des produits déployés, notamment chez la PS3\footnote{\url{https://media.ccc.de/v/27c3-4087-en-console_hacking_2010}}$^, $\footnote{\url{https://www.bbc.com/news/technology-12116051}}, compromettant entièrement la console.
+  \begin{parts}
+    \part Étant donné deux signatures, comment savoir si le même nonce est utilisé ?
+    \part Comment retrouver la clé privée à partir de ces deux signatures, les messages correspondant et la clé publique ?
+    \part Implémentez l'attaque sur les valeurs fournies.
+  \end{parts}
+  
+\end{questions}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

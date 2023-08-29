@@ -1,0 +1,96 @@
+\documentclass[french,a4paper,11pt]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage{amsmath,amsfonts}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{hyperref}
+
+\newcommand{\Zp}[1]{\mathbb{Z}/{#1}\mathbb{Z}}
+
+\title{\textbf{TP4 - Fonctions de hachage}}
+\date{01 Octobre 2021}
+
+\begin{document}
+	
+	\maketitle
+	
+	L'objectif de ces exercices est de vous familiariser avec les fonctions de hachage cryptographiques, et notamment avec leurs faiblesses. 
+			
+	
+	\begin{center}
+		\fbox{
+			\fbox{
+				\parbox{5.5in}{
+					\centering
+					Vous êtes libre de choisir le langage de programmation de votre choix.
+				}
+			}
+		}
+	\end{center}
+	
+	\section*{Exercice 1 : Recherche de collision avec l'algorithme de Floyd}
+	
+	L'algorithme de Floyd pour la recherche de cycle permet de trouver des collisions pour les fonctions de hachage si celle-ci engendre une suite récurrente (le même algorithme est utilisé pour la factorisation et le calcul du logarithme discret en utilisant la méthode $\rho$ de Pollard).
+	
+	\begin{questions}
+	
+	\question Implémentez l'\href{https://fr.wikipedia.org/wiki/Algorithme\_du\_li%C3%A8vre\_et\_de\_la\_tortue}{algorithme de détection de cycle de Floyd}.
+
+	\question À l'aide de cet algorithme, trouvez une collision pour une entrée quelconque de la fonction de hachage \texttt{sha256\_32} (SHA-256 tronquée à 32 bits pour avoir un attaque en un temps raisonnable) fournie dans le fichier sage.\\
+	
+	\end{questions}
+	
+	\section*{Exercice 2 : SHA-256}
+
+	En suivant les instructions données par le document du NIST\footnote{\url{https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf}}, implémentez la fonction de hachage SHA-256. Vous êtes libre de choisir le langage de programmation que vous souhaitez (C recommandé pour faciliter les opération binaires).
+
+	La primitive doit pouvoir être initialisée (\texttt{SHA256\_init}), l'état interne doit pouvoir être mis à jour (\texttt{SHA256\_update}) autant de fois que nécessaire, et la finalisation du traitement (\texttt{SHA256\_finalize}) inclut l'ajout du padding et la dernière mise à jour de l'état interne.
+
+	Pensez à gérer les cas particuliers (message vide par exemple). 
+
+	Des vecteurs de test permettant de vérifier votre implémentation sont disponibles sur le site du NIST\footnote{\url{https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Standards-and-Guidelines/documents/examples/SHA256.pdf}}.
+	
+	% \section*{Exercice 2: Collisions sur des messages cohérents}
+	
+	% L'objectif ici est de générer une collision entre deux messages $M$ et $M'$ en altérant les messages tout en conservant leur sens. Le but est d'apporter des modification anodines afin d'obtenir des condensats différents. Par exemple, remplacer les espaces par des espaces non sécables, ou ajouter de la ponctuation permet d'y parvenir.
+	
+	% \begin{questions}
+	
+	% 	\question En supposant que les messages puissent être modifiés à $t$ emplacements sans perdre de leur sens, justifiez qu'une fonction de hachage avec une sortie de $n < 2t$ comporte des collisions entre une copie de $M$ et une copie de $M'$ (avec forte probabilité).
+
+	% 	\question Considérons $i$ un entier de $t$ bits, encodant les modifications apportées au message. Notons $M_i$ le message altéré correspondant à ces modifications (de même pour $M'_i$)\\
+	% 	Par exemple, si on considère 2 modifications possibles au message "Fellowship of the Ring", la premirière étant 'F' $\rightarrow$ 'f' et la seconde étant 'R' $\rightarrow$ 'r', on a deux modification donc $i$ est encodé sur 2 bits (autrement dit, $i\in[0, 3]$):
+	% 	\begin{itemize}
+	% 		\item $M_0 = M$
+	% 		\item $M_1 =$ "fellowship of the Ring"
+	% 		\item $M_2 =$ "Fellowship of the ring"
+	% 		\item $M_3 =$ "fellowship of the ring"
+	% 	\end{itemize}
+
+	% 	Implémentez une fonction qui prend en entrée un message, une collection de $t$ modifications possibles et un entier de $t$ bits, et qui retourne le message altéré correspondant.
+	
+	% 	\question En se basant sur cette notation, considérons le fonction $F_v(i) = M_i$ si $v = 0$, et $M'_i$ si $v = 1$. Cette fonction permet de générer une suite de messages cohérents. En utilisant la fonction de hachage fournie, trouver une collision entre des messages cohérents formés à partir de \texttt{m1} et \texttt{m2}, en vous basant sur les modifications \texttt{t1} et \texttt{t2} respectivement.
+		
+	% \end{questions}
+	
+	\section*{Exercice 3 : \textit{Length-extension attack}}
+	
+	Les fonctions SHA1 et SHA2 (ainsi que MD5 et MD4 d'ailleurs) sont basées sur le schéma de Merkle-Damgård. Ce type de construction est vulnérable aux \textit{length extension attacks} lorsque la sortie du traitement ne reçoit pas de modification finale. En effet, dans ce cas, la sortie correspond à l'état interne final de la fonction de hachage. Ainsi, en initialisant l'état de départ avec le condensat reçu, il est possible de "continuer" le hachage du message, et d'ajouter des données à la fin.
+
+	Soient $K$ une clé sécrète de 128 bits, et $M$ le message "Ce message a été écrit par le le responsable de TP.". Le condensat suivant a été généré de la manière suivante : 
+	$$\texttt{SHA256}(K\ ||\ M) = \texttt{0xbc460fc2585f850bf417faba1718e27a887fb16d40ba6ce231d6f2198b95b949}$$ 
+
+	\vspace*{0.2cm}
+	\noindent Implémentez l'attaque pour générer le condensat de $K || M'$, avec $M' = "M\ ||\ \text{some data}"$. Le résultat attendu est la paire $(M',\ H(K\ ||\ M'))$.
+
+	\noindent N'oubliez pas de prendre en compte le padding.
+	
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

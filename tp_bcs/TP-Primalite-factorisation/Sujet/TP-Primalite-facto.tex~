@@ -1,0 +1,108 @@
+\documentclass[english,a4paper,11pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx,algorithmic,algorithm}
+
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings,url}
+\usepackage[left=2cm,right=2cm,top=1.5cm,bottom=1.5cm]{geometry}
+
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=2mm,
+  belowskip=2mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{Brown},
+  stringstyle=\color{Mulberry},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{\textbf{Practical Exercises 2 - Primality testing and factorisation}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+The goal of these exercises is to familiarize withclassical  arithmetical problems
+such as primality testing or factorisation, and their impact on public key
+cryptograhy. For implementations, it is advised you do a first draft using
+\textsc{SageMath}\footnote{\url{https://www.sagemath.org}} before translating it into
+C with \textsc{Gmp}\footnote{\url{https://gmplib.org/}}.
+
+% \noindent A report is expected, as a tar file containing your code as long as your answers to the questions. Do not forget to comment your code, and give details in your answers. Include \textbf{any leads you explored}, even if they did not succeed, and \textbf{as much details as} you can to show your understanding of the subject.
+
+% You shall send your reports in an e-mail, containing "[BCS]" in the subject, to \url{daniel.de-almeida-braga@irisa.fr}. The report is expected within a week after the session.
+
+% You can contact me anytime by mail at
+% \url{andrea.lesavourey@irisa.fr}.
+
+
+\section*{Exercise 1: Primality testing}
+
+One of the main algorithms used to verify whether a given integer \(n\) is a prime
+number is \emph{Miller-Rabin} algorithm\footnote{\url{https://en.wikipedia.org/wiki/Miller-Rabin_primality_test}}. It consists in successively drawing integers from
+\(\llbracket 2, n-1 \rrbracket \) and checking if they are \emph{witnesses} for the
+compositness of \(n\). If no witness is found, then \(n\) is deemed to be prime.
+
+\begin{questions}
+  \question Verify experimentally the prime number theorem : compute the average number
+  of primality trials required to generate a key for RSA-1024 and compare this value
+  to the theoretical one.
+  \question Implement the Miller-Rabin primality test.
+  \question Under the Generalised Riemann Hypothesis (GRH), the smallest witness
+  for a composite \(n\) is known to be less than \(2 \ln n^2\). Deduce from this
+  a deterministic primality test, called Miller test.
+  \question Compare the performances of your implementations to the ones of
+  functions given by \textsc{SageMath} or \textsc{Gmp}.
+\end{questions}
+
+\section*{Exercise 2: Pollard's \(p-1\)}
+
+Pollard's \(p-1\) algorithm\footnote{\url{}} is a factorisation algorithm based on
+the following idea. If \(p \mid n\) then there is
+\(a \in \llbracket 2, n-1 \rrbracket\) such that \(a^{p} \equiv 1 \bmod p\).
+
+\begin{questions}
+  
+  \question Implement Pollard's \(p-1\) algorithm and use it to factorise
+  \[
+    n = 117827681420271584017432903522327303325344948050665323956545863.
+  \]
+  
+  \question The success of the algorithm depends heavily on the shape of
+  the factors of \(n\). After explaining which are such weak factors, write a function
+  generating numbers \(n\) for which Pollard method would not retrieve a factor in
+  reasonable time.
+\end{questions}
+
+\section*{Exercise 3: Fermat method}
+
+Fermat method\footnote{\url{}} tries to factorise an integer \(n\) by writing is as the diffence between
+two squares.
+\begin{questions}
+  \question Implement Fermat method and use it to factorise
+  \[
+    n = 4433634977317959977189716351978918572296527677331175210881861.
+  \]
+  \question Can you generate composite integers for which Fermat method fails to
+  compute a factor in reasonable time ?
+\end{questions}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!-- Template by html.am -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Andrea Lesavourey</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  
+  <body>		  
+    <main>
+      <!-- <nav id="nav"> -->
+      <!-- 	<\!-- <div class="innertube"> -\-> -->
+
+      <!-- 	  <h1><a href=index.htm>Andrea Lesavourey</a></h1> -->
+      <!-- 	  <h3><a href="#Research">Research</a></h3> -->
+      <!-- 	  <\!-- <h3><a href="#Curriculum Vitae">Curriculum Vitae</a></h3> -\-> -->
+      <!-- 	  <h3><a href="#Teaching">Teaching</a></h3> -->
+      <!-- 	  <h3><a href="#Other">Other</a></h3> -->
+      <!-- 	  <h3><a href="#Contact">Contact</a></h3> -->
+      <!-- 	<\!-- </div> -\-> -->
+      <!-- </nav> -->
+      
+      <div id="main" class="innertube">
+	<img src="picture.jpg" height="230" width="230" align="right">
+	<h1>Andrea Lesavourey</h1>
+	
+	<h3> <b><a href="#Research">Research</a>  &nbsp
+	  <!-- <h3><a href="#Curriculum Vitae">Curriculum Vitae</a></h3> -->
+	  <a href="#Teaching">Teaching</a>  &nbsp
+	  <!-- <a href="#Other">Other</a> &nbsp -->
+	  <a href="#Contact">Contact</a></b> </h3>
+	<br><br>
+	
+	I am currently a post-doctoral researcher at University of Rennes, CNRS,
+	IRISA, working within the
+	<strong> <a href="https://team.inria.fr/capsule/">CAPSULE</a> </strong>
+	team under the supervision of
+	<a href="https://people.irisa.fr/Adeline.Roux-Langlois/">Adeline Roux-Langlois.</a>
+
+	Previously, I was a Ph.D. student at <i><a href="https://www.uow.edu.au/"> University of Wollongong, Australia </a> </i> under the supervision of <i><a href="https://sites.google.com/view/willy-susilo/">Willy Susilo</a></i> and <i><a href="https://thomas-plantard.github.io/">Thomas Plantard</a></i>.</br> </br>
+
+	Here is my (french) <a href=CV_lesav.pdf>CV</a>.
+	
+	<br><br>
+	
+	<h2 id="Contact">Contact</h2>
+	<ul>				
+	  <li> Mail: <i>andrea(dot)lesavourey(at)irisa(dot)fr </i> </li>
+	</ul>
+
+	<hr>
+	
+	<h2 id="Research">Research</h2>
+	I am currently working on lattice-based cryptography with a
+	focus on algebraic lattices and their underlying number
+	theoretical structure. More generally, I am interested by
+	computer algebra, algebraic number theory and their
+	applications to cryptography.</br>
+
+	<br>
+	<!-- <h3>Publications</h3> -->
+
+
+	<h3 id="PhD thesis">PhD thesis</h3>
+	My Ph.D. thesis can be found <a href="https://ro.uow.edu.au/theses1/1110/">here.</a></br>
+	Please, feel free to contact me if you have any question, remark or if you spot any error/typo.
+
+
+	<h3 id="Eprints">Preprints</h3>
+	<ol>
+	  <li> <i><a href="https://arxiv.org/abs/2305.17425"> Computing $e$-th roots in number fields</a></i>, with Olivier Bernard and Pierre-Alain Fouque.</li> <br>
+
+	  
+	  <li> <i><a href="https://hal.archives-ouvertes.fr/hal-03608840v1">Computing roots of polynomials over number fields using complex embeddings</i></a>, 
+	    <a href="https://sites.google.com/view/willy-susilo/">Willy Susilo</a> and <a href="https://thomas-plantard.github.io/">Thomas Plantard</a>. <br>
+	    Code available <a href="https://github.com/AndLesav/nf_polynomial_roots">here</a>
+	  </li><br>
+	  
+	  <li> <i><a href="https://eprint.iacr.org/2021/1623">On the Short Principal Ideal Problem over some real Kummer fields</i></a>, 
+	    with <a href="https://sites.google.com/view/willy-susilo/">Willy Susilo</a> and <a href="https://thomas-plantard.github.io">Thomas Plantard</a>. <br>
+	    Code available <a href="https://github.com/AndLesav/spip-on-kummer">here</a>
+	  </li><br>
+	</ol>
+
+
+	
+	<h3 id="Journal">Journal Papers</h3>
+	<ol><li> <i><a href=" https://doi.org/10.1515/jmc-2019-0028">Short Principal Ideal Problem in multicubic fields</i></a>, <a href="https://www.degruyter.com/view/journals/jmc/jmc-overview.xml">Journal of Mathematical Cryptology</a>, 14(1), 359-392, with <a href="https://sites.google.com/view/willy-susilo/">Willy Susilo</a> and <a href="https://thomas-plantard.github.io/">Thomas Plantard</a>
+	    <br> Journal version of the paper below, presented at NutMic 2019.
+	    
+	</ol>
+
+	<h3 id="Conference">Conference Papers</h3>
+	<!-- <ol type="3"> -->
+	  <ol>
+	    <li> <i><a href="https://eprint.iacr.org/2021/1384">Log-S-unit lattices using Explicit Stickelberger Generators to solve Approx Ideal-SVP</i></a>, 
+	      with Olivier Bernard, Tuong-Huy Nguyen, and <a href="https://people.irisa.fr/Adeline.Roux-Langlois/">Adeline Roux-Langlois.</a> <br>
+	      <a href= "https://asiacrypt.iacr.org/2022/" > ASIACRYPT 2022.</a>
+	      <br> Code available <a href="https://github.com/ob3rnard/Tw-Sti">here</a>
+	  </li><br>
+
+	    <li> <i><a href="http://nutmic2019.imj-prg.fr/confpapers/MultiCubic.pdf">On ideal lattices in multicubic fields</i></a>, 
+	      with <a href="https://sites.google.com/view/willy-susilo/">Willy Susilo</a> and <a href="https://thomas-plantard.github.io/">Thomas Plantard</a>.
+	      <br> <a href= "http://nutmic2019.imj-prg.fr/" > Number-Theoretic Methods in Cryptology 2019 </a> 
+	      <br> <a href= "http://nutmic2019.imj-prg.fr/slides/Lesavourey_Nutmic.pdf"> Slides </a> </li>
+	    <br>
+	    
+	    <li> <i>Efficient Leak Resistant Modular Exponentiation in RNS</i>, with <a href="http://perso.univ-perp.fr/christophe.negre/">C. Negre</a> and <a href="https://thomas-plantard.github.io/">T. Plantard</a>.
+	      <br>Proceedings of <a href="http://arith24.arithsymposium.org">ARITH 24</a>. 24th IEEE Symposium on Computer Arithmetic. London, England, July 24-26, 2017, pages 156-163.
+	    </li>
+	    <br>
+
+	    <li> <i>Efficient Randomized Regular Modular Exponentiation using Combined Montgomery and Barrett Multiplications</i>, 
+	      with <a href="http://perso.univ-perp.fr/christophe.negre/">C. Negre</a> and <a href="https://thomas-plantard.github.io/">T. Plantard</a>.
+	      <br><a href="http://www.secrypt.icete.org">SECRYPT 2016</a>. The 13th International Conference on Security and Cryptography. Lisbon, Portugal, July 26-28, 2016, pages 368-375.
+	    </li>
+	  </ol>
+	  
+	  <h3 id="notes">Notes and works in progress</h3>
+	  <ol>
+	    	    <li> <i>Covering Radius and First Minima Bound on Diagonally Dominant Lattices in the l$_\infty$-norm</i>, 
+	      with <a href="https://thomas-plantard.github.io/">Thomas Plantard</a> and Arnaud Sipasseuth.
+	      <br> Accepted for presentation to <a href= "http://nutmic2021.amu.edu.pl/index.html" > Number-Theoretic Methods in Cryptology (Nutmic) 2021.</a>
+	    </li>
+	    <br>
+	    
+	    <li> <i><a href="https://hal.univ-rennes2.fr/INRIA/hal-03456622"> A note on the discriminant and prime ramification of some real Kummer extensions</i></a>.</li>
+	  </ol>
+	  <hr>
+	  
+	  <h2 id="Presentations">Presentations and talks</h2>
+	  <h3>Summer schools and workshops</h3>
+	  <ol>
+	    <li> <a href="https://sourcesup.renater.fr/www/orga-jncf/"> Journées Nationales du Calcul Formel (JNCF), 2023
+	      </a>
+	      <br> <i> Computing roots in number fields</i>
+	    </li>
+	    </br>
+
+	    <li> <a href="https://jc2-2022.inria.fr/"> Structured Matrix Days, 2022
+	      </a>
+	      <br> <i> Covering radius and first minimum of diagonally dominant lattices for the max norm</i>
+	    </li>
+	    </br>
+	    <li> <a href="https://jc2-2022.inria.fr/"> Journées Codages et Cryptographie, 2022 </a>
+	      <br> <i> Calcul de racines de polynômes dans un corps de nombres</i>
+	    </li>
+	    </br>
+	    <li> <a href="https://jc2-2020.inria.fr/"> Journées Codages et Cryptographie, 2020 </a>
+	      <br> <i> Retrieving short generators of principal ideals in real Kummer
+		extensions.</i>
+	    </li>
+	    <br>
+	    <li>  <a href="https://ejcim2020.sciencesconf.org/"> School for young reaserchers by the GDR-IM in France</a>
+	      <br> <i> Retrouver des générateurs courts d'idéaux principaux dans
+		certaines extensions de Kummer réelles </i>
+	      <br> <a href="https://ejcim2020.sciencesconf.org/data/EJCIM_lesavourey.pdf"> Slides </a>
+	    </li>
+	  </ol>
+	  
+	  <h3>Seminars</h3>
+	  <ol>
+	    <li> <a href="https://www.lirmm.fr/eco/seminar.php"> Séminaire ECO, LIRMM, Montpellier (2023)</a>
+	      <br>  <i> Log-S-unit lattices using Explicit Stickelberger
+		Generators to solve Approx Ideal-SVP.
+	      </i>
+	    </li>
+	    <br>
+	    	    
+	    <li> <a href="https://clementj01.users.greyc.fr/semalgo/2023/01/10/talk.html"> Séminaire Algorithmique, GREYC, Caen (2023)</a>
+	      <br>  <i> Vecteurs courts dans des réseaux idéaux.
+	      </i>
+	    </li>
+	    <br>
+
+	    <li> <a href="https://barbierm01.users.greyc.fr/seminaire_crypto/seminaire.html"> Séminaire Cryptologie & Sécurité, GREYC, Caen (2022)</a>
+	      <br>  <i> Vecteurs courts dans des réseaux idéaux ; études pratiques.
+	      </i>
+	    </li>
+	    <br>
+	    <li> <a href="https://www-ljk.imag.fr/spip.php?article10&seminaire=amac-casc"> Séminaire de l'équipe CASC, Laboratoire Jean Kuntzmann, Grenoble (2022)</a>
+	      <br>  <i> Vecteurs courts dans des réseaux idéaux ; étude pratique et
+		calculs efficaces </i>
+	    </li>
+	    </br>
+	    <li> <a href="https://indico.math.cnrs.fr/category/40/"> Séminaire de l'équipe Calcul Formel, XLIM, Limoges (2022)</a>
+	      <br>  <i> Vecteurs courts dans des réseaux idéaux ; étude pratique et calculs efficaces </i>
+	    </li>
+	  </ol>
+	  
+	  <hr>
+	  <h2 id="Others">Others</h2>
+
+	  <h3>Organisation</h3>
+	  I helped organise and took part to the <i>First Workshop on Mathematics
+	    and Algorithms for Cryptographic Advanced Objects</i>,
+	  <a href="https://ssl.informatics.uow.edu.au/MACAO/workshop_2019.html"> MACAO. </a>
+
+	  <h3>Editorial work</h3>
+	  I have been a sub-reviewer for the conferences ACISP 2020 and 2022, as well as with PKC 2023.
+	
+	  <hr>
+
+	  <h2 id="Teaching">Teaching</h2>
+	  
+	  <h4>First semester 2022-2023</h4>
+	  <ul>
+	    <li> <i> <a href="./bcs.html"> Bases de Cryptographie </a></i>  (Master 2, ISTIC, Rennes, France)
+	      <br> Lab sessions. 
+	    </li> <br>
+	    <li> <i> Réseaux euclidiens et cryptographie </i> (Master 2, IRMAR, Rennes, France)
+	      <br> Tutorial sessions.
+	    </li>
+	  </ul>
+
+	  <h4>Second semester 2021-2022</h4>
+	  <ul>
+	    <li> <i> Cryptography </i> (Master 1, IRMAR, Rennes, France)
+	      <br> Lab sessions. </li>
+	  </ul>
+	  
+	  <h4>First semester 2021-2022</h4>
+	  <ul>
+	    <li> <i> Introduction to programming </i> (First year, ISTIC, Rennesm France)
+	      <br> Tutorial session. </li>
+	    <br>
+	    <li> <i> Introduction to algorithmic </i> (M1 Meef, Préparation au CAPES-NSI, ISTIC, Rennes, France)
+	      <br> Tutorial and lab sessions. </li>	
+
+	  </ul>
+
+	  
+	  <h4>Autumn Session 2020 and 2021</h4>
+	  <ul>
+	    <li> <i> Knowledge and Information Engineering </i> (ISIT219, University of Wollongong, Australia)
+	      <br> Lab sessions.</li>	
+	  </ul>
+	  
+	  <h4>Autumn Session 2019</h4>
+	  <ul>
+	    <li> <i> Problem Solving </i> (CSIT113, University of Wollongong, Australia)
+	      <br> Tutorial sessions. </li>	
+	  </ul>
+	  <h4>2016-2017</h4>
+	  <ul>
+	    <li> Highschool Mathematics Teacher at Lycée Malherbe in Caen, France.	
+	  </ul>
+	  <!-- <h2 id="Other">Other</h2> -->
+      </div>
+      <a href="./index.html">Andrea Lesavourey</a> <br>
+      <script language="javascript"> 
+	months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; 
+	var d=new Date();
+	var theDate = new Date(document.lastModified); 
+	theDate.setTime((theDate.getTime()+(60*60)) ) 
+	with (theDate) { 
+	    document.write("<i>Last updated: "+' '+getDate()+' '+months[getMonth()]+' '+getFullYear()+"</i>") 
+	} 
+	</script>
+    </main>
+
+
+
+  </body>
+</html>

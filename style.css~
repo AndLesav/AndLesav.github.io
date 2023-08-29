@@ -1,0 +1,88 @@
+/* <style type="text/css"> */
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 150%; 
+    max-height: 150%; 
+    font-family:CourierNew;
+    line-height: 1.5em;
+    font-size:100%;
+}
+
+a:link,a:visited, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: #FFFFFF;
+    
+}
+
+#main a{
+    text-decoration: none;
+    color: #660000;
+    
+}
+
+
+#nav{
+    position: fixed;
+    top: 0;
+    bottom: 0; 
+    left: 0;
+    width: 260px; /* Width of navigation frame */
+    height: 100%;
+    overflow: hidden; /* Disables scrollbars on the navigation frame. To enable scrollbars, change "hidden" to "scroll" */
+    background: #880000;
+}
+
+main{
+    position: fixed;
+    top: 0; 
+    left:0px; /* Set this to the width of the navigation frame */
+    right: 0;
+    bottom: 0;
+    overflow: auto; 
+    background: #7555;
+}
+
+.innertube{
+    margin: 10px; /* Provides padding for the content */
+}
+
+p {
+    color: #555;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul a {
+    color: darkgreen;
+    text-decoration: none;
+}
+
+/*IE6 fix*/
+* html body{
+    padding: 0 0 0 245px; /* Set the last value to the width of the navigation frame */
+}
+
+* html main{ 
+    height: 100%; 
+    width: 100%; 
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.05em;
+    margin-left: auto;
+    margin-right: 1px;
+    border-style: dashed;
+    border-width: 1.75px;
+    border-color: #660000;
+    clear: both;
+}
+/* </style> */

@@ -13,7 +13,7 @@ body{
 
 a:link,a:visited, a:focus, ea:active {
     text-decoration: none;
-    color: #660000;
+    color: #860000;
     /* display: inline-block; */
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
 #main a{
     text-decoration: none;
-    color: #660000;
+    color: #860000;
 }
 
 #main a:hover {
@@ -45,11 +45,11 @@ a:hover {
 main{
     position: fixed;
     top: 0; 
-    left:0px; /* Set this to the width of the navigation frame */
+    left: 0px; /* Set this to the width of the navigation frame */
     right: 0;
     bottom: 0;
     overflow: auto; 
-    background: #7555;
+    background: #9888;
 }
 
 .innertube{

@@ -6,9 +6,9 @@ body{
     overflow: hidden;
     height: 150%; 
     max-height: 150%; 
-    font-family:CourierNew;
+    font-family:Fira Sans;
     line-height: 1.5em;
-    font-size:100%;
+    font-size:120%;
 }
 
 a:link,a:visited, a:focus, ea:active {

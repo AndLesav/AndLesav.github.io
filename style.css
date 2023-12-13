@@ -4,16 +4,16 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    height: 150%; 
-    max-height: 150%; 
+    height: 140%; 
+    max-height: 140%; 
     font-family:Fira Sans;
     line-height: 1.5em;
-    font-size:120%;
+    font-size:110%;
 }
 
 a:link,a:visited, a:focus, ea:active {
     text-decoration: none;
-    color: #860000;
+    color: #900;
     /* display: inline-block; */
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
 #main a{
     text-decoration: none;
-    color: #860000;
+    color: #900;
 }
 
 #main a:hover {
@@ -49,7 +49,7 @@ main{
     right: 0;
     bottom: 0;
     overflow: auto; 
-    background: #9888;
+    background: #F5F5F5;
 }
 
 .innertube{
@@ -89,7 +89,7 @@ hr {
     margin-right: 1px;
     border-style: dashed;
     border-width: 1.75px;
-    border-color: #660000;
+    border-color: #900;
     clear: both;
 }
 /* </style> */

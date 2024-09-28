@@ -30,7 +30,6 @@ a:hover {
     text-decoration: underline;
 }
 
-
 /* #nav{ */
 /*     position: fixed; */
 /*     top: 0; */
@@ -38,9 +37,11 @@ a:hover {
 /*     left: 0; */
 /*     width: 260px; /\* Width of navigation frame *\/ */
 /*     height: 100%; */
-/*     overflow: hidden; /\* Disables scrollbars on the navigation frame. To enable scrollbars, change "hidden" to "scroll" *\/ */
+/*     overflow: hidden; /\* Disables scrollbars on the navigation frame.
+       To enable scrollbars, change "hidden" to "scroll" *\/ */
 /*     background: #880000; */
 /* } */
+
 
 main{
     position: fixed;
@@ -57,7 +58,7 @@ main{
 }
 
 p {
-    color: #555;
+    color: #000;
 }
 
 nav ul {

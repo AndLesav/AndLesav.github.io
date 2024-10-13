@@ -1,29 +1,29 @@
 /* <style type="text/css"> */
 
 :root {
-  --clr-white: rgb(255, 255, 255);
-  --clr-black: rgb(0, 0, 0);
+    --clr-white: rgb(255, 255, 255);
+    --clr-black: rgb(0, 0, 0);
 
-  --clr-default: gray;
-  --clr-primary: blue;
-  --clr-danger: red;
-  --clr-success: green;
-  --clr-warning: orange;
-  --clr-red-brick: #900;
+    --clr-default: gray;
+    --clr-primary: blue;
+    --clr-danger: red;
+    --clr-success: green;
+    --clr-warning: orange;
+    --clr-red-brick: #900;
 
-  
-  --ff-sans: "Inter", "sans-serif";
+    
+    --ff-sans: "Inter", "sans-serif";
 
-  --fs-normal: 1.25rem;
-  --fs-small: .75rem;
-  --fs-large: 1.75rem;
+    --fs-normal: 1.25rem;
+    --fs-small: .75rem;
+    --fs-large: 1.75rem;
 
-  --fw-bold: bold;
+    --fw-bold: bold;
 
-  --shadow: .5rem;
+    --shadow: .5rem;
 
-  --rounded: 2rem;
-  
+    --rounded: 2rem;
+    
 }
 
 *,
@@ -69,7 +69,6 @@ a:hover {
 
     justify-content: center;
 
-
     align-items: center;
 
     min-width: 10ch;
@@ -102,6 +101,7 @@ a:hover {
     box-shadow: calc(var(--shadow)/3) calc(var(--shadow)/3) rgba(0,0, 0 ,.5);
     color: var(--clr-white)!important;
     background-color: var(--clr-red-brick);
+    text-decoration: none!important;
 }
 
 .btn:active {

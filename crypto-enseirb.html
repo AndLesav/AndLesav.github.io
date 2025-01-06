@@ -41,8 +41,7 @@
 	  var theDate = new Date(document.lastModified); 
 	  theDate.setTime((theDate.getTime()+(60*60)) ) 
 	  with (theDate) { 
-	      document.write("<i>Last updated: "+' '+getDate()+'
-	  '+months[getMonth()]+' '+getFullYear()+"</i>")
+	      document.write("<i>Last updated: "+' '+getDate()+' '+months[getMonth()]+' '+getFullYear()+"</i>")
 	  } 
 	  </script>
 	
